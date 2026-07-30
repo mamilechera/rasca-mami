@@ -67,19 +67,12 @@ p{
     to{transform:scale(1);opacity:1;}
 }
 
-button{
-    margin-top:25px;
-    padding:14px 28px;
-    border:none;
-    background:#ff2d7a;
-    color:white;
-    border-radius:12px;
+#gracias{
+    display:none;
+    margin-top:20px;
+    color:#ff2d7a;
+    font-weight:bold;
     font-size:18px;
-    cursor:pointer;
-}
-
-button:hover{
-    background:#e80062;
 }
 </style>
 
@@ -96,26 +89,34 @@ button:hover{
 
 <div id="numero"></div>
 
-<button onclick="jugar()">JUGAR OTRA VEZ</button>
+<div id="gracias">
+🎀 Gracias por participar 🎀
+</div>
 
 </div>
 
 <script>
 
 const premios=[4,7,12,17];
+let jugado=false;
 
 function jugar(){
 
-const numero=premios[Math.floor(Math.random()*premios.length)];
+    if(jugado) return;
 
-document.getElementById("scratch").style.display="none";
+    jugado=true;
 
-const n=document.getElementById("numero");
+    const numero=premios[Math.floor(Math.random()*premios.length)];
 
-n.innerHTML=numero;
+    document.getElementById("scratch").style.display="none";
 
-n.style.display="block";
+    const n=document.getElementById("numero");
 
+    n.innerHTML=numero;
+
+    n.style.display="block";
+
+    document.getElementById("gracias").style.display="block";
 }
 
 document.getElementById("scratch").onclick=jugar;
