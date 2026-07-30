@@ -1,31 +1,158 @@
 <!DOCTYPE html>
-<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>LA MAMI LECHERA</title>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>La Mami Lechera</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.35)),url('modelo.png') center/cover no-repeat fixed;display:flex;justify-content:center;align-items:center;height:100vh}
-.card{width:370px;background:#fff;border-radius:30px;padding:30px;text-align:center;box-shadow:0 25px 60px rgba(0,0,0,.45);animation:f 4s ease-in-out infinite}
-@keyframes f{50%{transform:translateY(-10px)}}
-.titulo{font-size:42px;font-weight:900;color:#ff2d7a;text-shadow:0 2px 0 #fff,0 4px 0 #ff9ac6,0 8px 14px rgba(255,45,122,.45);margin:0 0 15px}
-p{color:#666}
-#scratch{margin:25px auto;width:250px;height:88px;border-radius:18px;background:linear-gradient(135deg,#ff5aa8,#ff197a);display:flex;align-items:center;justify-content:center;color:#fff;font-size:30px;font-weight:900;cursor:pointer;position:relative;overflow:hidden;box-shadow:0 10px 25px rgba(255,45,122,.45)}
-#scratch:before{content:"";position:absolute;left:-120%;top:0;width:60%;height:100%;background:rgba(255,255,255,.35);transform:skewX(-20deg);animation:s 2.8s infinite}
-@keyframes s{100%{left:160%}}
-#numero{display:none;font-size:90px;color:#ff2d7a;font-weight:900}
-#gracias{display:none;margin-top:16px;color:#ff2d7a;font-weight:bold}
-.c{position:fixed;width:10px;height:10px;border-radius:50%;animation:fall 2s linear forwards}
-@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
-</style></head><body>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+font-family:Arial,sans-serif;
+background:
+linear-gradient(rgba(0,0,0,.22),rgba(0,0,0,.35)),
+url("modelo.png") center/cover no-repeat fixed;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+overflow:hidden;
+}
+.card{
+width:min(390px,92vw);
+background:#fff;
+border-radius:32px;
+padding:30px;
+text-align:center;
+box-shadow:0 25px 60px rgba(0,0,0,.35);
+animation:float 4s ease-in-out infinite;
+position:relative;
+z-index:2;
+}
+@keyframes float{50%{transform:translateY(-8px)}}
+.logo{
+font-size:44px;
+font-weight:900;
+line-height:1.05;
+color:#ff2c82;
+text-shadow:
+0 2px #fff,
+0 4px #ff9bc8,
+0 6px #ff7ab8,
+0 10px 14px rgba(255,45,130,.35);
+margin-bottom:16px;
+}
+.sub{color:#666;margin-bottom:22px}
+#btn{
+height:88px;
+border-radius:20px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:linear-gradient(135deg,#ff78ba,#ff2c82);
+color:#fff;
+font-size:32px;
+font-weight:900;
+cursor:pointer;
+position:relative;
+overflow:hidden;
+box-shadow:0 12px 28px rgba(255,45,130,.35);
+}
+#btn:before{
+content:"";
+position:absolute;
+left:-60%;
+top:0;
+width:45%;
+height:100%;
+background:rgba(255,255,255,.35);
+transform:skewX(-20deg);
+animation:shine 2.6s infinite;
+}
+@keyframes shine{100%{left:140%}}
+#premio{
+display:none;
+font-size:92px;
+font-weight:900;
+color:#ff2c82;
+text-shadow:0 0 18px rgba(255,45,130,.35);
+animation:pop .45s ease;
+}
+@keyframes pop{
+0%{transform:scale(.2) rotate(-8deg);opacity:0}
+80%{transform:scale(1.15)}
+100%{transform:scale(1)}
+}
+#msg{display:none;margin-top:14px;color:#ff2c82;font-weight:bold}
+.confetti{
+position:fixed;
+width:10px;height:10px;border-radius:50%;
+animation:fall 2.2s linear forwards;
+}
+@keyframes fall{
+to{transform:translateY(110vh) rotate(720deg);opacity:0}
+}
+.heart{
+position:fixed;
+bottom:-30px;
+font-size:22px;
+animation:rise 8s linear infinite;
+opacity:.5;
+}
+@keyframes rise{
+to{transform:translateY(-120vh);opacity:0}
+}
+</style>
+</head>
+<body>
+
 <div class="card">
-<h1 class="titulo">🍼 LA MAMI LECHERA 🍼</h1>
-<p>Pulsa para descubrir tu premio.</p>
-<div id="scratch">RASCA Y GANA</div>
-<div id="numero"></div>
-<div id="gracias">💖 Gracias por participar 💖</div>
+<div class="logo">🍼 LA MAMI<br>LECHERA 🍼</div>
+<div class="sub">Pulsa para descubrir tu premio.</div>
+
+<div id="btn">RASCA Y GANA</div>
+
+<div id="premio"></div>
+<div id="msg">💖 ¡Gracias por participar! 💖</div>
 </div>
+
 <script>
-const premios=[4,7,12,17];let usado=false;
-const scratch=document.getElementById('scratch'),numero=document.getElementById('numero'),gracias=document.getElementById('gracias');
-function confeti(){const cols=['#ff2d7a','#ffd700','#7de3ff','#fff'];for(let i=0;i<70;i++){let d=document.createElement('div');d.className='c';d.style.left=Math.random()*100+'vw';d.style.top='-10px';d.style.background=cols[Math.floor(Math.random()*cols.length)];document.body.appendChild(d);setTimeout(()=>d.remove(),2200);}}
-scratch.addEventListener('click',()=>{if(usado)return;usado=true;scratch.style.display='none';numero.style.display='block';gracias.style.display='block';numero.textContent=premios[Math.floor(Math.random()*premios.length)];confeti();});
-</script></body></html>
+const premios=[4,7,12,17];
+const btn=document.getElementById("btn");
+const premio=document.getElementById("premio");
+const msg=document.getElementById("msg");
+let usado=false;
+
+for(let i=0;i<20;i++){
+ const h=document.createElement("div");
+ h.className="heart";
+ h.innerHTML="💗";
+ h.style.left=Math.random()*100+"vw";
+ h.style.animationDelay=Math.random()*8+"s";
+ document.body.appendChild(h);
+}
+
+function confeti(){
+const colores=["#ff2c82","#ffd700","#8de6ff","#ffffff"];
+for(let i=0;i<90;i++){
+const c=document.createElement("div");
+c.className="confetti";
+c.style.left=Math.random()*100+"vw";
+c.style.top="-15px";
+c.style.background=colores[Math.floor(Math.random()*colores.length)];
+document.body.appendChild(c);
+setTimeout(()=>c.remove(),2300);
+}
+}
+
+btn.onclick=()=>{
+ if(usado)return;
+ usado=true;
+ btn.style.display="none";
+ premio.style.display="block";
+ msg.style.display="block";
+ premio.textContent=premios[Math.floor(Math.random()*premios.length)];
+ confeti();
+};
+</script>
+</body>
+</html>
