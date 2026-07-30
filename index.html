@@ -9,7 +9,8 @@
 body{
     margin:0;
     font-family:Arial,Helvetica,sans-serif;
-    background:linear-gradient(135deg,#ff5fa2,#ff2d7a);
+    background:url("modelo.png") center center no-repeat;
+    background-size:cover;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -18,11 +19,12 @@ body{
 
 .card{
     width:340px;
-    background:#fff;
+    background:rgba(255,255,255,.92);
+    backdrop-filter:blur(8px);
     border-radius:20px;
     padding:30px;
     text-align:center;
-    box-shadow:0 20px 40px rgba(0,0,0,.3);
+    box-shadow:0 20px 40px rgba(0,0,0,.45);
 }
 
 h1{
@@ -34,16 +36,8 @@ p{
     color:#555;
 }
 
-#modelo{
-    width:100%;
-    border-radius:18px;
-    margin:15px 0 20px;
-    box-shadow:0 10px 25px rgba(0,0,0,.25);
-    transition:.5s;
-}
-
 #scratch{
-    margin:15px auto;
+    margin:25px auto;
     width:240px;
     height:100px;
     background:#bdbdbd;
@@ -71,8 +65,14 @@ p{
 }
 
 @keyframes zoom{
-    from{transform:scale(.2);opacity:0;}
-    to{transform:scale(1);opacity:1;}
+    from{
+        transform:scale(.2);
+        opacity:0;
+    }
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
 }
 
 #gracias{
@@ -92,8 +92,6 @@ p{
 <h1>🎀 LA MAMI LECHERA 🎀</h1>
 
 <p>Pulsa sobre la tarjeta para descubrir tu premio.</p>
-
-<img id="modelo" src="modelo.png" alt="Modelo">
 
 <div id="scratch">RASCAR</div>
 
@@ -119,7 +117,6 @@ function jugar(){
     const numero=premios[Math.floor(Math.random()*premios.length)];
 
     document.getElementById("scratch").style.display="none";
-    document.getElementById("modelo").style.display="none";
 
     const n=document.getElementById("numero");
 
