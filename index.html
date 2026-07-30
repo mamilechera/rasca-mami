@@ -34,8 +34,16 @@ p{
     color:#555;
 }
 
+#modelo{
+    width:100%;
+    border-radius:18px;
+    margin:15px 0 20px;
+    box-shadow:0 10px 25px rgba(0,0,0,.25);
+    transition:.5s;
+}
+
 #scratch{
-    margin:25px auto;
+    margin:15px auto;
     width:240px;
     height:100px;
     background:#bdbdbd;
@@ -85,6 +93,8 @@ p{
 
 <p>Pulsa sobre la tarjeta para descubrir tu premio.</p>
 
+<img id="modelo" src="modelo.png" alt="Modelo">
+
 <div id="scratch">RASCAR</div>
 
 <div id="numero"></div>
@@ -109,6 +119,7 @@ function jugar(){
     const numero=premios[Math.floor(Math.random()*premios.length)];
 
     document.getElementById("scratch").style.display="none";
+    document.getElementById("modelo").style.display="none";
 
     const n=document.getElementById("numero");
 
